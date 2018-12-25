@@ -7,6 +7,7 @@ const app = require("./server");
 // import schema from './schema'
 
 const server = http.createServer(app);
+// var io = (module.exports.io = require("socket.io")(app));
 let currentApp = app;
 
 server.listen(config.port, () => {

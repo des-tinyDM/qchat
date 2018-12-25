@@ -1,0 +1,20 @@
+.header {
+  font-family: "Playfair Display", serif;
+  // font-family: "Pacifico", cursive;
+  color: white;
+  background: $clr-secondary-light2;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2vw;
+  align-items: center;
+  height: 60px;
+  &__logo {
+    font-family: "Kaushan Script", cursive;
+  }
+  &__nav {
+    display: flex;
+    width: 60vw;
+    justify-content: space-between;
+  }
+}

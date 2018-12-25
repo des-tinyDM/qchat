@@ -1,0 +1,174 @@
+.login {
+  margin: 0 auto;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 200px;
+  justify-content: space-between;
+  padding: 80px 0;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  &__namesection {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 3px;
+    align-items: center;
+    @media screen and (max-width: 420px) {
+      max-width: 340px;
+    }
+  }
+  &__inputcontainer {
+    display: flex;
+    width: 100%;
+    max-width: $max-form-width;
+    margin-bottom: 15px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    align-items: center;
+    padding: 0 0 0 10px;
+    position: relative;
+
+    &--half {
+      width: 45%;
+      // min-width: 150px;
+      max-width: 195px;
+      @media screen and (max-width: 420px) {
+        max-width: 150px;
+      }
+    }
+
+    &--submit {
+      display: flex;
+      width: 100%;
+      max-width: $max-form-width;
+      margin-bottom: 15px;
+      // border: 1px solid lightgrey;
+      border-radius: 3px;
+      align-items: center;
+      position: relative;
+
+      @media only screen and (max-width: 420px) {
+        max-width: unset;
+        min-width: unset;
+        width: 80%;
+      }
+    }
+    @media only screen and (max-width: 420px) {
+      width: 80%;
+    }
+  }
+  &__input {
+    // width: 30vw;
+    // max-width: 200px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    display: flex;
+    align-items: center;
+    -webkit-box-shadow: 0 0 0 30px white inset;
+
+    &--half {
+      width: 45%;
+      @media screen and (max-width: 420px) {
+        max-width: 105px;
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &--submit {
+      background: $clr-secondary-light1;
+      width: 100%;
+      color: white;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      border-radius: 3px;
+      font-weight: 800;
+      text-decoration: none;
+      font-size: 0.8rem;
+      -webkit-box-shadow: unset;
+      border: none;
+
+      &:hover {
+        background: lighten($clr-secondary-light1, 10%);
+        cursor: pointer;
+      }
+      &:active {
+        background: darken($clr-secondary-light1, 10%);
+      }
+    }
+  }
+  &__dividercontainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 360px;
+    height: fit-content;
+    margin: 0 auto 10px auto;
+  }
+  &__divider {
+    // border: 2px solid $clr-secondary-light1;
+    background: $clr-secondary-light1;
+    display: inline-block;
+    z-index: 10;
+    height: 0.75px;
+    width: 25%;
+  }
+  &__signuplink {
+    width: 45%;
+  }
+}
+.icon {
+  padding: 10px;
+  color: lighten($clr-secondary-light2, 10%);
+  // color: white;
+  min-width: 30px;
+  text-align: center;
+  border-radius: 3px;
+  position: absolute;
+  font-size: 17px;
+  right: 0px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.label {
+  color: lighten($clr-secondary-light2, 20%);
+  line-height: 20px;
+}
+.focus {
+  box-shadow: 0 0 0 2pt lighten($clr-secondary-light2, 10%);
+}
+.input-err {
+  outline: 1px solid red;
+  animation: shake 0.75s both;
+}
+.error-displaycontainer {
+  display: flex;
+  flex-direction: column;
+}
+.error-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // width: 80%;
+  & .icon {
+    position: unset;
+    right: unset;
+    padding: unset;
+    width: unset;
+  }
+}

@@ -5,7 +5,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || "development";
 const env = process.env.NODE_ENV;
 
 const baseConfig = {
-  port: 3123,
+  port: 3124,
   secrets: { SESSION_SECRET: "twocansecretifoneofthemisdead" }
 };
 
@@ -28,4 +28,3 @@ switch (env) {
 }
 const appConfig = merge(baseConfig, envConfig);
 module.exports = appConfig;
-console.log(appConfig);

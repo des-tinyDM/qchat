@@ -1,2 +1,189 @@
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0); }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-7px); }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(7px); } }
+
+.header {
+  font-family: "Playfair Display", serif;
+  color: white;
+  background: #b17dff;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2vw;
+  align-items: center;
+  height: 60px; }
+  .header__logo {
+    font-family: "Kaushan Script", cursive; }
+  .header__nav {
+    display: flex;
+    width: 60vw;
+    justify-content: space-between; }
+
+.container {
+  height: 100vh;
+  width: 100vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; }
+
+.page {
+  flex-grow: 1; }
+
 .footer {
-  background: red; }
+  background: dodgerblue; }
+
+.login {
+  margin: 0 auto;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 200px;
+  justify-content: space-between;
+  padding: 80px 0; }
+  .login__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    flex-wrap: wrap; }
+  .login__namesection {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 3px;
+    align-items: center; }
+    @media screen and (max-width: 420px) {
+      .login__namesection {
+        max-width: 340px; } }
+  .login__inputcontainer {
+    display: flex;
+    width: 100%;
+    max-width: 410px;
+    margin-bottom: 15px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    align-items: center;
+    padding: 0 0 0 10px;
+    position: relative; }
+    .login__inputcontainer--half {
+      width: 45%;
+      max-width: 195px; }
+      @media screen and (max-width: 420px) {
+        .login__inputcontainer--half {
+          max-width: 150px; } }
+    .login__inputcontainer--submit {
+      display: flex;
+      width: 100%;
+      max-width: 410px;
+      margin-bottom: 15px;
+      border-radius: 3px;
+      align-items: center;
+      position: relative; }
+      @media only screen and (max-width: 420px) {
+        .login__inputcontainer--submit {
+          max-width: unset;
+          min-width: unset;
+          width: 80%; } }
+    @media only screen and (max-width: 420px) {
+      .login__inputcontainer {
+        width: 80%; } }
+  .login__input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    display: flex;
+    align-items: center;
+    -webkit-box-shadow: 0 0 0 30px white inset; }
+    .login__input--half {
+      width: 45%; }
+      @media screen and (max-width: 420px) {
+        .login__input--half {
+          max-width: 105px; } }
+    .login__input:focus {
+      outline: none; }
+    .login__input--submit {
+      background: #cdacff;
+      width: 100%;
+      color: white;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      border-radius: 3px;
+      font-weight: 800;
+      text-decoration: none;
+      font-size: 0.8rem;
+      -webkit-box-shadow: unset;
+      border: none; }
+      .login__input--submit:hover {
+        background: #ecdfff;
+        cursor: pointer; }
+      .login__input--submit:active {
+        background: #ae79ff; }
+  .login__dividercontainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 360px;
+    height: fit-content;
+    margin: 0 auto 10px auto; }
+  .login__divider {
+    background: #cdacff;
+    display: inline-block;
+    z-index: 10;
+    height: 0.75px;
+    width: 25%; }
+  .login__signuplink {
+    width: 45%; }
+
+.icon {
+  padding: 10px;
+  color: #d0b0ff;
+  min-width: 30px;
+  text-align: center;
+  border-radius: 3px;
+  position: absolute;
+  font-size: 17px;
+  right: 0px; }
+  .icon:hover {
+    cursor: pointer; }
+
+.label {
+  color: #eee3ff;
+  line-height: 20px; }
+
+.focus {
+  box-shadow: 0 0 0 2pt #d0b0ff; }
+
+.input-err {
+  outline: 1px solid red;
+  animation: shake 0.75s both; }
+
+.error-displaycontainer {
+  display: flex;
+  flex-direction: column; }
+
+.error-display {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .error-display .icon {
+    position: unset;
+    right: unset;
+    padding: unset;
+    width: unset; }

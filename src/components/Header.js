@@ -8,7 +8,15 @@ class Header extends Component {
   render() {
     return (
       <div className="header">
-        <h1>Header</h1>
+        <h1 className="header__logo">QCZ</h1>
+        <nav className="header__nav">
+          <p className="header__link">Search</p>
+          <p className="header__link">Forums</p>
+          <p className="header__link">Events</p>
+          <p className="header__link">About</p>
+          <p className="header__link">Contact</p>
+          <p className="header__link">Login</p>
+        </nav>
       </div>
     );
   }

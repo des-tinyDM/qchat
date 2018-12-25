@@ -1,0 +1,8 @@
+CREATE TABLE "public"."users" (
+    "id" uuid NOT NULL,
+    "firstName" varchar(50) NOT NULL,
+    "lastName" varchar(50) NOT NULL,
+    "email" varchar(225) NOT NULL,
+    "hashed_password" text NOT NULL,
+    PRIMARY KEY ("id")
+);
