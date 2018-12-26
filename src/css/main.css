@@ -171,19 +171,21 @@
   box-shadow: 0 0 0 2pt #d0b0ff; }
 
 .input-err {
-  outline: 1px solid red;
+  border: 1px solid red;
   animation: shake 0.75s both; }
 
 .error-displaycontainer {
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  margin: 0px auto 10px auto; }
 
 .error-display {
   display: flex;
   align-items: center;
-  justify-content: center; }
-  .error-display .icon {
-    position: unset;
-    right: unset;
-    padding: unset;
-    width: unset; }
+  justify-content: center;
+  margin: 0 auto;
+  width: 60%; }
+  .error-display p {
+    margin: 0 0;
+    color: red;
+    font-size: 1rem; }

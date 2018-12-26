@@ -8,16 +8,22 @@ class Register extends Component {
     this.state = {
       showPass: false,
       showPassRepeat: false,
+
       focusFirst: false,
-      errorFirst: false,
       focusLast: false,
-      errorLast: false,
       focusEmail: false,
-      errorEmail: false,
       focusPass: false,
-      errorPass: false,
       focusPassRepeat: false,
+
+      errorFirst: false,
+      errorLast: false,
+      errorEmail: false,
+      errorPass: false,
       errorPassRepeat: false,
+      errorPassMatch: false,
+      errorPassLength: false,
+      displayErrorMessage: false,
+
       firstName: "",
       lastName: "",
       email: "",
@@ -25,87 +31,51 @@ class Register extends Component {
       passRepeat: ""
     };
   }
-  checkPasswordIsSame = e => {
-    let { pass, passRepeat } = this.state;
-    if (pass == passRepeat) {
-      return true;
-    }
-    return false;
-  };
-  resetErrorFields = e => {
-    this.setState({ errorFirst: false, errorLast: false });
-  };
-  checkFieldsHaveValue = e => {
-    if (!firstName) {
-      console.log("no first name");
-      this.setState({ errorFirst: true });
-      error = "First name is required.";
-    }
-    if (!lastName) {
-      this.setState({ errorLast: true });
-      error = "Last name is required.";
-    }
-  };
-  validateFields = e => {
-    let error = "";
-    let {
-      firstName,
-      lastName,
-      email,
-      pass,
-      passRepeat,
-      errorFirst,
-      errorLast,
-      errorEmail,
-      errorPass,
-      errorPassRepeat
-    } = this.state;
-    this.resetErrorFields();
 
-    setTimeout(this.checkFieldsHaveValue(), 1000);
-    return error;
-    // if (!email) {
-    //   return "Email is required.";
-    // }
-    // if (!pass) {
-    //   return "Password is required.";
-    // }
-    // if (!passRepeat) {
-    //   return "Repeated password is required.";
-    // }
-    console.log(error);
-    // this.setState({ error });
-  };
   register = e => {
-    let error = this.validateFields();
-    if (error) {
-      this.setState({ error });
-    }
-    let { firstName, lastName, email, pass } = this.state;
-    if (this.checkPasswordIsSame() == true) {
-      console.log("passwords are the same");
-    } else {
-      this.setState({ error: "Passwords don't match" });
-    }
-
-    let registerInfo = { firstName, lastName, email, pass };
-    e.preventDefault();
-    console.log(registerInfo);
+    e.preventDefault(); //prevents default form behavior (submit)
+    let error;
+    console.log("submitting");
+    this.checkFieldsForValues();
   };
+
   showPass = e => {
     e.preventDefault();
     this.setState(({ showPass }) => ({ showPass: !showPass }));
   };
+
   showPassRepeat = e => {
     e.preventDefault();
     this.setState(({ showPassRepeat }) => ({
       showPassRepeat: !showPassRepeat
     }));
   };
+
   onInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    e.persist();
+    let name = [e.target.name];
+    this.setState({ [e.target.name]: e.target.value }, () => {
+      if (name == "passRepeat") {
+        this.verifyPassword(e);
+      }
+    });
+  };
+
+  verifyPassword = e => {
+    e.persist();
+    if (this.state.pass !== this.state.passRepeat) {
+      e.target.checkValidity("Passwords must match");
+    } else {
+      e.target.setCustomValidity("");
+      this.setState({ errorPassRepeat: false });
+    }
+  };
+
+  checkFieldsForValues = e => {
+    this.state.firstName === "" && this.setState({ errorFirst: true });
   };
   render() {
+    // console.log(this.state);
     let {
       showPass,
       showPassRepeat,
@@ -123,12 +93,19 @@ class Register extends Component {
       errorLast,
       errorEmail,
       errorPass,
-      errorPassRepeat
+      errorPassRepeat,
+      errorPassLength,
+      errorPassMatch
     } = this.state;
     return (
       <div className="login">
         <h2 className="login__title">Register</h2>
-        <div className="login__form">
+        <form
+          className="login__form"
+          onSubmit={this.register}
+          method="post"
+          novalidate
+        >
           <div className="login__namesection">
             <div
               className={`login__inputcontainer login__inputcontainer--half ${focusFirst &&
@@ -143,6 +120,7 @@ class Register extends Component {
                 placeholder="First Name"
                 type="text"
                 aria-required="true"
+                required
                 name="firstName"
                 value={firstName}
                 onChange={this.onInputChange}
@@ -160,15 +138,18 @@ class Register extends Component {
                 className="login__input login__input--half login__input--lastname"
                 placeholder="Last Name"
                 type="text"
+                required
                 aria-required="true"
                 name="lastName"
                 value={lastName}
-                onChange={this.onInputChange}
+                onChange={e => this.onInputChange(e)}
               />
             </div>
           </div>
+
           <div
-            className={`login__inputcontainer ${focusEmail && "focus"}`}
+            className={`login__inputcontainer ${focusEmail &&
+              "focus"} ${errorEmail && "input-err"}`}
             onFocus={() => this.setState({ focusEmail: true })}
             onBlur={() => this.setState({ focusEmail: false })}
           >
@@ -177,15 +158,18 @@ class Register extends Component {
               title="Enter your email here"
               className="login__input login__input--email"
               placeholder="Email"
-              type="text"
+              type="email"
+              required
               aria-required="true"
               name="email"
               value={email}
-              onChange={this.onInputChange}
+              onChange={e => this.onInputChange(e)}
             />
           </div>
+
           <div
-            className={`login__inputcontainer ${focusPass && "focus"}`}
+            className={`login__inputcontainer ${focusPass &&
+              "focus"} ${(errorPass || errorPassLength) && "input-err"}`}
             onFocus={() => this.setState({ focusPass: true })}
             onBlur={() => this.setState({ focusPass: false })}
           >
@@ -193,7 +177,7 @@ class Register extends Component {
               <FontAwesomeIcon className="label" icon={["fas", "lock"]} />
             </label>
             <input
-              title="Enter your password here"
+              title="Passwords must be 8-20 characters in length, and consist of alphanumeric characters or the following symbols: !, @, #, $, %"
               id="pass-input"
               className="login__input login__input--password"
               placeholder="Password"
@@ -201,7 +185,9 @@ class Register extends Component {
               aria-required="true"
               name="pass"
               value={pass}
-              onChange={this.onInputChange}
+              required
+              pattern="^(?=[^\d_].*?\d)\w(\w|[!@#$%]){7,20}"
+              onChange={e => this.onInputChange(e)}
             />
 
             <FontAwesomeIcon
@@ -211,8 +197,10 @@ class Register extends Component {
               icon={["fas", `${showPass ? "eye-slash" : "eye"}`]}
             />
           </div>
+
           <div
-            className={`login__inputcontainer ${focusPassRepeat && "focus"}`}
+            className={`login__inputcontainer ${focusPassRepeat &&
+              "focus"} ${errorPassRepeat && "input-err"}`}
             onFocus={() => this.setState({ focusPassRepeat: true })}
             onBlur={() => this.setState({ focusPassRepeat: false })}
           >
@@ -220,15 +208,17 @@ class Register extends Component {
               <FontAwesomeIcon className="label" icon={["fas", "lock"]} />
             </label>
             <input
-              title="Enter your password here"
+              title="Passwords don't match."
               id="pass-input"
               className="login__input login__input--password"
-              placeholder="Password"
+              placeholder="Verify Password"
               type={showPassRepeat ? "text" : "password"}
               aria-required="true"
+              required
               name="passRepeat"
+              pattern={this.state.password}
               value={passRepeat}
-              onChange={this.onInputChange}
+              onChange={e => this.onInputChange(e)}
             />
 
             <FontAwesomeIcon
@@ -238,14 +228,40 @@ class Register extends Component {
               icon={["fas", `${showPassRepeat ? "eye-slash" : "eye"}`]}
             />
           </div>
-          {this.state.error && <p>{this.state.error}</p>}
+
+          {this.state.displayErrorMessage && (
+            <div className="error-displaycontainer">
+              {errorFirst && (
+                <div className="error-display">
+                  <p>First name required</p>
+                  <FontAwesomeIcon
+                    className="icon"
+                    icon={["fas", "info-circle"]}
+                  />
+                </div>
+              )}
+              {errorLast && <p>Last name required.</p>}
+              {errorEmail && <p>Email required.</p>}
+              {errorPass && <p>Password required.</p>}
+              {errorPassLength && (
+                <div className="error-display">
+                  <p>Password is invalid.</p>
+                  <FontAwesomeIcon
+                    className="icon"
+                    icon={["fas", "info-circle"]}
+                  />
+                </div>
+              )}
+              {errorPassMatch && <p>Passwords must match.</p>}
+            </div>
+          )}
+
           <div className="login__inputcontainer--submit">
-            <button
-              onClick={this.register}
+            <input
+              type="submit"
               className="login__input login__input--submit"
-            >
-              Submit
-            </button>
+              value="Submit"
+            />
           </div>
           <div className="login__dividercontainer">
             <hr className="login__divider" />
@@ -257,7 +273,7 @@ class Register extends Component {
               Login
             </Link>
           </div>
-        </div>
+        </form>
       </div>
     );
   }
